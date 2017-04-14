@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from .models import Gift
 from django.shortcuts import render
-from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse('Hello list app!')
+    all_gifts = Gift.objects.all()
+    context = {'all_gifts': all_gifts}
+    return render(request, 'gifttrack/index.html', context)
