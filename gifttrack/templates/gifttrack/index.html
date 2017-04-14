@@ -1,3 +1,5 @@
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
 {% if all_gifts %}
     <ul>
         {% for gift in all_gifts %}
