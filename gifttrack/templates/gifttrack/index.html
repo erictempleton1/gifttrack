@@ -1,9 +1,9 @@
 {% if all_gifts %}
     <ul>
         {% for gift in all_gifts %}
-            <li>
-                {{ gift.gift_desc }}
-            </li>
+            <li>{{ gift.gift_desc }}</li>
+            <li>{{ gift.gift_from }}</li>
+            <li>{{ gift.gift_notes }}</li>
         {% endfor %}
     </ul>
 {% else %}

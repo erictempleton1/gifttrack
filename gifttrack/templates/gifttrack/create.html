@@ -6,8 +6,15 @@
     </p>
 {% endif %}
 
-<form action="/create/" method="post">
+<form action="/track/create/" method="post">
+    {% csrf_token %}
     <label for="gift_desc">Gift Description: </label>
     <input id="gift_desc" type="text" name="gift_desc">
+
+    <label for="gift_from">Gift From: </label>
+    <input id="gift_from" type="text" name="gift_from">
+
+    <label for="gift_notes">Gift Notes: </label>
+    <input id="gift_notes" type="text" name="gift_notes">
     <input type="submit" value="Save">
 </form>
