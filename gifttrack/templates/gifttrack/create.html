@@ -1,0 +1,13 @@
+{% if error_message %}
+    <p>
+        <strong>
+            {{ error_message }}
+        </strong>
+    </p>
+{% endif %}
+
+<form action="/create/" method="post">
+    <label for="gift_desc">Gift Description: </label>
+    <input id="gift_desc" type="text" name="gift_desc">
+    <input type="submit" value="Save">
+</form>
