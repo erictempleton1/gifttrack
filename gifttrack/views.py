@@ -3,10 +3,11 @@ from __future__ import unicode_literals
 
 from .models import Gift
 from .forms import GiftForm, RegForm
-from django.contrib.auth.models import User
 
 from django.shortcuts import render
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate, login
 
 
 def index(request):
@@ -38,8 +39,22 @@ def register(request):
         print form
         if form.is_valid():
             clean_form_data = form.cleaned_data
-            print clean_form_data
-            return HttpResponseRedirect('/track')
+            password = clean_form_data['password']
+            email = clean_form_data['email']
+            if password == clean_form_data['password_confirm']:
+                print clean_form_data
+                user = User.objects.create_user(email, email, password)
+                user.save()
+                new_user = authenticate(request, username=email, password=password)
+                if new_user is not None:
+                    login(request, new_user)
+                    return HttpResponseRedirect('/track')
+                else:
+                    # todo - add error message
+                    return HttpResponseRedirect('/track/register')
+            else:
+                # todo - add error message
+                return HttpResponseRedirect('/track/register')
     else:
         form = RegForm()
     return render(request, 'gifttrack/register.html', {'form': form})
