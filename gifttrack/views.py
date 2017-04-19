@@ -50,11 +50,9 @@ def register(request):
                     login(request, new_user)
                     return HttpResponseRedirect('/track')
                 else:
-                    # todo - add error message
                     messages.error(request, 'An error occurred in registration')
                     return HttpResponseRedirect('/track/register')
             else:
-                # todo - add error message
                 messages.error(request, 'Please enter matching passwords')
                 return HttpResponseRedirect('/track/register')
     else:
