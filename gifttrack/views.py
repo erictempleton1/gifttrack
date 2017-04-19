@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from .models import Gift
 from .forms import GiftForm, RegForm
 
+from django.contrib import messages
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -27,6 +28,7 @@ def create(request):
                 gift_notes=clean_form_data['gift_notes'],
             )
             gift_obj.save()
+            messages.success(request, 'Gift added!')
             return HttpResponseRedirect('/track')
     else:
         form = GiftForm()
@@ -36,13 +38,11 @@ def create(request):
 def register(request):
     if request.method == 'POST':
         form = RegForm(request.POST)
-        print form
         if form.is_valid():
             clean_form_data = form.cleaned_data
             password = clean_form_data['password']
             email = clean_form_data['email']
             if password == clean_form_data['password_confirm']:
-                print clean_form_data
                 user = User.objects.create_user(email, email, password)
                 user.save()
                 new_user = authenticate(request, username=email, password=password)
@@ -51,9 +51,11 @@ def register(request):
                     return HttpResponseRedirect('/track')
                 else:
                     # todo - add error message
+                    messages.error(request, 'An error occurred in registration')
                     return HttpResponseRedirect('/track/register')
             else:
                 # todo - add error message
+                messages.error(request, 'Please enter matching passwords')
                 return HttpResponseRedirect('/track/register')
     else:
         form = RegForm()
