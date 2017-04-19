@@ -13,9 +13,9 @@ from django.contrib.auth import authenticate, login
 
 def index(request):
     all_gifts = Gift.objects.all()
-    context = {'all_gifts': all_gifts}
+    all_users = User.objects.all()
+    context = {'all_gifts': all_gifts, 'all_users': all_users}
     return render(request, 'gifttrack/index.html', context)
-
 
 def create(request):
     if request.method == 'POST':
