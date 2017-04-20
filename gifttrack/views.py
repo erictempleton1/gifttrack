@@ -43,14 +43,27 @@ def register(request):
             password = clean_form_data['password']
             email = clean_form_data['email']
             if password == clean_form_data['password_confirm']:
-                user = User.objects.create_user(email, email, password)
-                user.save()
-                new_user = authenticate(request, username=email, password=password)
-                if new_user is not None:
-                    login(request, new_user)
-                    return HttpResponseRedirect('/track')
+                user_exists = User.objects.filter(username=email).exists()
+                if not user_exists:
+                    user = User.objects.create_user(email, email, password)
+                    user.save()
+                    # todo - maybe remove auth check here and go straight to login?
+                    new_user = authenticate(
+                        request, 
+                        username=email, 
+                        password=password
+                    )
+                    if new_user is not None:
+                        login(request, new_user)
+                        return HttpResponseRedirect('/track')
+                    else:
+                        messages.error(
+                            request,
+                            'An error occurred in registration'
+                        )
+                        return HttpResponseRedirect('/track/register')
                 else:
-                    messages.error(request, 'An error occurred in registration')
+                    messages.error(request, 'Username already exists')
                     return HttpResponseRedirect('/track/register')
             else:
                 messages.error(request, 'Please enter matching passwords')
