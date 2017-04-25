@@ -9,6 +9,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -17,6 +18,7 @@ def index(request):
     context = {'all_gifts': all_gifts, 'all_users': all_users}
     return render(request, 'gifttrack/index.html', context)
 
+@login_required
 def create(request):
     if request.method == 'POST':
         form = GiftForm(request.POST)
