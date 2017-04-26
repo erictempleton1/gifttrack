@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 
@@ -52,6 +52,13 @@ def login_user(request):
     else:
         form = LoginForm()
         return render(request, 'gifttrack/login.html', {'form': form})
+
+def logout_user(request):
+    if request.user.is_authenticated():
+        logout(request)
+        messages.info(request, 'Logged out')
+        return HttpResponseRedirect('/track')
+    return HttpResponseRedirect('/track')
 
 def register(request):
     if request.method == 'POST':
