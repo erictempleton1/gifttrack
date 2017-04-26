@@ -42,3 +42,16 @@ class RegForm(forms.Form):
         )
     )
 
+class LoginForm(forms.Form):
+    email = forms.EmailField(
+        label='Email',
+        widget=forms.EmailInput(
+            attrs={'required': True, 'max_length': 150}
+        )
+    )
+    password = forms.CharField(
+        label='Password',
+        widget=forms.PasswordInput(
+            attrs={'required': True, 'max_length': 150}
+        )
+    )

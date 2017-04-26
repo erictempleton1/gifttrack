@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from .models import Gift
-from .forms import GiftForm, RegForm
+from .forms import GiftForm, RegForm, LoginForm
 
 from django.contrib import messages
 from django.shortcuts import render
@@ -36,6 +36,21 @@ def create(request):
         form = GiftForm()
     return render(request, 'gifttrack/create.html', {'form': form})
 
+def login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect('/track')
+        else:
+            message.error(request, 'Invalid username/password')
+            return HttpResponseRedirect('/track/login')
+    else:
+        form = LoginForm()
+        return render(request, 'gifttrack/login.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':
