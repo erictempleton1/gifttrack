@@ -36,18 +36,19 @@ def create(request):
         form = GiftForm()
     return render(request, 'gifttrack/create.html', {'form': form})
 
-def login(request):
+def login_user(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        email = form.cleaned_data['email']
-        password = form.cleaned_data['password']
-        user = authenticate(request, username=email, password=password)
-        if user is not None:
-            login(request, user)
-            return HttpResponseRedirect('/track')
-        else:
-            message.error(request, 'Invalid username/password')
-            return HttpResponseRedirect('/track/login')
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/track')
+            else:
+                messages.error(request, 'Invalid username/password')
+                return HttpResponseRedirect('/track/login')
     else:
         form = LoginForm()
         return render(request, 'gifttrack/login.html', {'form': form})
