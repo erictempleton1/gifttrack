@@ -37,6 +37,8 @@ def create(request):
     return render(request, 'gifttrack/create.html', {'form': form})
 
 def login_user(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/track')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -61,6 +63,8 @@ def logout_user(request):
     return HttpResponseRedirect('/track')
 
 def register(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/track')
     if request.method == 'POST':
         form = RegForm(request.POST)
         if form.is_valid():
