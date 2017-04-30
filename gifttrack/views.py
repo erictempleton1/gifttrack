@@ -31,14 +31,18 @@ def create(request):
             )
             gift_obj.save()
             messages.success(request, 'Gift added!')
-            return HttpResponseRedirect('/track')
+            return HttpResponseRedirect('/')
     else:
         form = GiftForm()
     return render(request, 'gifttrack/create.html', {'form': form})
 
+@login_required
+def user_page(request):
+    return render(request, 'gifttrack/user_page.html')
+
 def login_user(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/track')
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -47,10 +51,10 @@ def login_user(request):
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/track')
+                return HttpResponseRedirect('/')
             else:
                 messages.error(request, 'Invalid username/password')
-                return HttpResponseRedirect('/track/login')
+                return HttpResponseRedirect('/login')
     else:
         form = LoginForm()
         return render(request, 'gifttrack/login.html', {'form': form})
@@ -59,12 +63,12 @@ def logout_user(request):
     if request.user.is_authenticated():
         logout(request)
         messages.info(request, 'Logged out')
-        return HttpResponseRedirect('/track')
-    return HttpResponseRedirect('/track')
+        return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/')
 
 def register(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/track')
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         form = RegForm(request.POST)
         if form.is_valid():
@@ -84,19 +88,19 @@ def register(request):
                     )
                     if new_user is not None:
                         login(request, new_user)
-                        return HttpResponseRedirect('/track')
+                        return HttpResponseRedirect('/')
                     else:
                         messages.error(
                             request,
                             'An error occurred in registration'
                         )
-                        return HttpResponseRedirect('/track/register')
+                        return HttpResponseRedirect('/register')
                 else:
                     messages.error(request, 'Username already exists')
-                    return HttpResponseRedirect('/track/register')
+                    return HttpResponseRedirect('/register')
             else:
                 messages.error(request, 'Please enter matching passwords')
-                return HttpResponseRedirect('/track/register')
+                return HttpResponseRedirect('/register')
     else:
         form = RegForm()
     return render(request, 'gifttrack/register.html', {'form': form})
