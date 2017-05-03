@@ -10,7 +10,7 @@ from datetime import datetime
 
 @python_2_unicode_compatible
 class GiftList(models.Model):
-    name = models.CharFields(max_length=500)
+    name = models.CharField(max_length=500)
     save_date = models.DateTimeField(default=datetime.now)
     edit_date = models.DateTimeField(default=datetime.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -21,7 +21,7 @@ class GiftList(models.Model):
 
 @python_2_unicode_compatible
 class GiftListFields(models.Model):
-    name = models.CharFields(max_length=150)
+    name = models.CharField(max_length=150)
     save_date = models.DateTimeField(default=datetime.now)
     edit_date = models.DateTimeField(default=datetime.now)
     gift_list = models.ForeignKey(GiftList, on_delete=models.CASCADE)
