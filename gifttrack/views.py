@@ -41,8 +41,9 @@ def create_list(request):
     if request.method == 'POST':
         form = GiftListForm(request.POST)
         if form.is_valid():
-            # do some stuff
-            pass
+            print form.cleaned_data
+            # todo - save some stuff here!
+            return HttpResponseRedirect('/user')
     else:
         form = GiftListForm()
     return render(request, 'gifttrack/create_list.html', {'form': form})
