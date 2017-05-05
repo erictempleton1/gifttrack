@@ -67,7 +67,7 @@ class LoginForm(forms.Form):
 
 class GiftListForm(forms.Form):
     name = forms.CharField(
-        label="Name",
+        label="Gift List Name",
         widget=forms.TextInput(
             attrs=base_attrs()
         )
