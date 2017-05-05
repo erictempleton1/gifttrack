@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from .models import Gift
-from .forms import GiftForm, RegForm, LoginForm
+from .forms import GiftForm, RegForm, LoginForm, GiftListForm
 
 from django.contrib import messages
 from django.shortcuts import render
@@ -35,6 +35,17 @@ def create(request):
     else:
         form = GiftForm()
     return render(request, 'gifttrack/create.html', {'form': form})
+
+@login_required
+def create_list(request):
+    if request.method == 'POST':
+        form = GiftListForm(request.POST)
+        if form.is_valid():
+            # do some stuff
+            pass
+    else:
+        form = GiftListForm()
+    return render(request, 'gifttrack/create_list.html', {'form': form})
 
 @login_required
 def user_page(request):

@@ -50,6 +50,7 @@ class RegForm(forms.Form):
         )
     )
 
+
 class LoginForm(forms.Form):
     email = forms.EmailField(
         label='Email',
@@ -60,6 +61,14 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         label='Password',
         widget=forms.PasswordInput(
+            attrs=base_attrs()
+        )
+    )
+
+class GiftListForm(forms.Form):
+    name = forms.CharField(
+        label="Name",
+        widget=forms.TextInput(
             attrs=base_attrs()
         )
     )
