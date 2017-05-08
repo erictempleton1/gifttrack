@@ -1,49 +1,52 @@
+<!doctype html>
 <html>
     <head>
         <title>
             {% block title %}{% endblock title %}
         </title>
-        {% load static %}
-         <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
-         <link href="../../static/css/style.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     </head>
     <body>
-         <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Project name</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav pull-right">
-                    <li><a href="/">Home</a></li>
-                    {% if request.user.is_authenticated %}
-                        <li><a href="/create">Create</a></li>
-                        <li><a href="/logout">Logout</a></li>
-                    {% else %}
-                        <li><a href="/login">Login</a></li>
-                        <li><a href="/register">Sign Up</a></li>
-                    {% endif %}
-                </ul>
-                </div><!--/.nav-collapse -->
+        <div class="mdl-layout mdl-js-layout">
+          <header class="mdl-layout__header mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+              <!-- Title -->
+              <span class="mdl-layout-title">GiftTrack</span>
+              <!-- Add spacer, to align navigation to the right -->
+              <div class="mdl-layout-spacer"></div>
+              <!-- Navigation -->
+              <nav class="mdl-navigation">
+              <a class="mdl-navigation__link" href="/">Home</a>
+                {% if request.user.is_authenticated %}
+                    <a class="mdl-navigation__link" href="/create">Create</a></li>
+                    <a class="mdl-navigation__link" href="/logout">Logout</a></li>
+                {% else %}
+                    <a class="mdl-navigation__link" href="/login">Login</a></li>
+                    <a class="mdl-navigation__link" href="/register">Sign Up</a></li>
+                {% endif %}
+              </nav>
             </div>
+          </header>
+          <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">GiftTrack</span>
+            <nav class="mdl-navigation">
+              <a class="mdl-navigation__link" href="/">Home</a>
+                {% if request.user.is_authenticated %}
+                    <a class="mdl-navigation__link" href="/create">Create</a></li>
+                    <a class="mdl-navigation__link" href="/logout">Logout</a></li>
+                {% else %}
+                    <a class="mdl-navigation__link" href="/login">Login</a></li>
+                    <a class="mdl-navigation__link" href="/register">Sign Up</a></li>
+                {% endif %}
             </nav>
-
-            <div class="container">
-
-            <div class="starter-template">
-                <h1>Bootstrap starter template</h1>
-                <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-                {% block body %}{% endblock body %}    
+          </div>
+          <main class="mdl-layout__content">
+            <div class="page-content">
+                {% block body %}{% endblock body %}
             </div>
-            </div>
+          </main>
         </div>
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-        <script src="../../static/js/bootstrap.min.js"></script>
     </body>
 </html>
