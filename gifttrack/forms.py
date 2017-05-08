@@ -2,7 +2,11 @@ from django import forms
 
 
 def base_attrs():
-    return {'required': True, 'max_length': 150, 'class': 'form-control'}
+    return {
+        'required': True,
+        'max_length': 150,
+        'class': 'mdl-textfield__input'
+    }
 
 
 class GiftForm(forms.Form):
