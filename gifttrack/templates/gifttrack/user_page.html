@@ -11,5 +11,13 @@
 </ul>
 {% endif %}
 
-user page!
+{% if user_gift_lists %}
+<ul>
+    {% for gift_list in user_gift_lists %}
+        <li>{{ gift_list.name }}</li>
+        <li>{{ gift_list.save_date }}</li>
+    {% endfor %}
+{% else %}
+    <p>No gifts found!</p>
+{% endif %}
 {% endblock %}

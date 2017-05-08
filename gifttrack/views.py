@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from .models import Gift
+from .models import Gift, GiftList, GiftListFields
 from .forms import GiftForm, RegForm, LoginForm, GiftListForm
 
 from django.contrib import messages
@@ -41,8 +41,11 @@ def create_list(request):
     if request.method == 'POST':
         form = GiftListForm(request.POST)
         if form.is_valid():
-            print form.cleaned_data
-            # todo - save some stuff here!
+            gift_list = GiftList(
+                name=form.cleaned_data['name'],
+                user=request.user
+            )
+            gift_list.save()
             return HttpResponseRedirect('/user')
     else:
         form = GiftListForm()
@@ -50,7 +53,10 @@ def create_list(request):
 
 @login_required
 def user_page(request):
-    return render(request, 'gifttrack/user_page.html')
+    user_gift_lists = GiftList.objects.filter(user=request.user)
+    print user_gift_lists
+    context = {'user_gift_lists': user_gift_lists}
+    return render(request, 'gifttrack/user_page.html', context)
 
 def login_user(request):
     if request.user.is_authenticated():
