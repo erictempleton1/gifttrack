@@ -69,6 +69,7 @@ class LoginForm(forms.Form):
         )
     )
 
+
 class GiftListForm(forms.Form):
     name = forms.CharField(
         label="Gift List Name",
