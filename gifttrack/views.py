@@ -55,9 +55,21 @@ def create_list(request):
 
 @login_required
 def user_page(request):
-    user_gift_lists = GiftList.objects.filter(user=request.user)
-    context = {'user_gift_lists': user_gift_lists}
-    return render(request, 'gifttrack/user_page.html', context)
+    if request.method == 'POST':
+        form = GiftListForm(request.POST)
+        if form.is_valid():
+            gift_list = GiftList(
+                name=form.cleaned_data['name'],
+                user=request.user
+            )
+            gift_list.save()
+            return HttpResponseRedirect('/user')
+    else:
+        form = GiftListForm()
+        user_gift_lists = GiftList.objects.filter(user=request.user)
+        print user_gift_lists
+        context = {'user_gift_lists': user_gift_lists, 'form': form}
+        return render(request, 'gifttrack/user_page.html', context)
 
 def login_user(request):
     if request.user.is_authenticated():

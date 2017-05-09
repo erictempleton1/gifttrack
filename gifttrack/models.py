@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -11,8 +12,8 @@ from datetime import datetime
 @python_2_unicode_compatible
 class GiftList(models.Model):
     name = models.CharField(max_length=500)
-    save_date = models.DateTimeField(default=datetime.now)
-    edit_date = models.DateTimeField(default=datetime.now)
+    save_date = models.DateTimeField(default=timezone.now)
+    edit_date = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
