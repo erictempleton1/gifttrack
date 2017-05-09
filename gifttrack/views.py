@@ -49,12 +49,13 @@ def create_list(request):
             return HttpResponseRedirect('/user')
     else:
         form = GiftListForm()
-    return render(request, 'gifttrack/create_list.html', {'form': form})
+        user_gift_list = GiftList.objects.filter(user=request.user)
+        context = {'user_gift_list': user_gift_list, 'form': form}
+    return render(request, 'gifttrack/create_list.html', context)
 
 @login_required
 def user_page(request):
     user_gift_lists = GiftList.objects.filter(user=request.user)
-    print user_gift_lists
     context = {'user_gift_lists': user_gift_lists}
     return render(request, 'gifttrack/user_page.html', context)
 

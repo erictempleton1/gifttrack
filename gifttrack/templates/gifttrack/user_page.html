@@ -11,6 +11,14 @@
 </ul>
 {% endif %}
 
+<div class="form-group">
+    <form action="/user/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
 {% if user_gift_lists %}
 <ul>
     {% for gift_list in user_gift_lists %}
