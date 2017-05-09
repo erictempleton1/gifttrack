@@ -17,6 +17,10 @@
         {{ form.name }}
         <label class="mdl-textfield__label" for="name">Gift List Name</label>
     </div>
+    <div class="mdl-textfield mdl-js-textfield">
+        {{ form.description }}
+        <label class="mdl-textfield__label" for="name">Description</label>
+    </div>
     <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
           Add Gift List
     </button>
@@ -28,7 +32,7 @@
         <li class="mdl-list__item mdl-list__item--two-line">
             <span class="mdl-list__item-primary-content">
                 <span>{{ gift_list.name }}</span>
-                <span class="mdl-list__item-sub-title">{{ gift_list.save_date }}</span>
+                <span class="mdl-list__item-sub-title">{{ gift_list.description }}</span>
             </span>
             <span class="mdl-list__item-secondary-content">
                 <i class="material-icons">edit</i>
@@ -40,5 +44,6 @@
     {% endfor %}
 {% else %}
     <p>No gifts found!</p>
+</ul>
 {% endif %}
 {% endblock %}

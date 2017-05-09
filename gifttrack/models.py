@@ -12,6 +12,7 @@ from datetime import datetime
 @python_2_unicode_compatible
 class GiftList(models.Model):
     name = models.CharField(max_length=500)
+    description = models.CharField(max_length=500, default="No Description")
     save_date = models.DateTimeField(default=timezone.now)
     edit_date = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -77,3 +77,9 @@ class GiftListForm(forms.Form):
             attrs=base_attrs()
         )
     )
+    description = forms.CharField(
+        label="Gift List Name",
+        widget=forms.TextInput(
+            attrs=base_attrs()
+        )
+    )
