@@ -10,21 +10,26 @@
     {% endfor %}
 </ul>
 {% endif %}
-
-<form action="/user/" method="post">
-    {% csrf_token %}
-    <div class="mdl-textfield mdl-js-textfield">
-        {{ form.name }}
-        <label class="mdl-textfield__label" for="name">Gift List Name</label>
-    </div>
-    <div class="mdl-textfield mdl-js-textfield">
-        {{ form.description }}
-        <label class="mdl-textfield__label" for="name">Description</label>
-    </div>
-    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-          Add Gift List
-    </button>
-</form>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <form action="/user/" method="post">
+        {% csrf_token %}
+        <div class="mdl-textfield mdl-js-textfield">
+            <label class="mdl-textfield__label" for="name">Gift List Name</label>
+            {{ form.name }}
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            <label class="mdl-textfield__label" for="name">Description</label>
+            {{ form.description }}
+        </div>
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+            Add Gift List
+        </button>
+    </form>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+</div>
 
 {% if user_gift_lists %}
 <ul class="demo-list-item mdl-list">
