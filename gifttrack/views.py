@@ -41,8 +41,12 @@ def user_page(request):
     if request.method == 'POST':
         form = GiftListForm(request.POST)
         if form.is_valid():
+            if form.cleaned_data['description'] == "":
+                description = "No Description"
+            description = form.cleaned_data['description']
             gift_list = GiftList(
                 name=form.cleaned_data['name'],
+                description=description,
                 user=request.user
             )
             gift_list.save()
