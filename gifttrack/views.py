@@ -18,23 +18,6 @@ def index(request):
     context = {'all_gifts': all_gifts, 'all_users': all_users}
     return render(request, 'gifttrack/index.html', context)
 
-@login_required
-def create(request):
-    if request.method == 'POST':
-        form = GiftForm(request.POST)
-        if form.is_valid():
-            clean_form_data = form.cleaned_data
-            gift_obj = Gift(
-                gift_desc=clean_form_data['gift_desc'],
-                gift_from=clean_form_data['gift_from'],
-                gift_notes=clean_form_data['gift_notes'],
-            )
-            gift_obj.save()
-            messages.success(request, 'Gift added!')
-            return HttpResponseRedirect('/')
-    else:
-        form = GiftForm()
-    return render(request, 'gifttrack/create.html', {'form': form})
 
 @login_required
 def user_page(request):
@@ -43,7 +26,8 @@ def user_page(request):
         if form.is_valid():
             if form.cleaned_data['description'] == "":
                 description = "No Description"
-            description = form.cleaned_data['description']
+            else:
+                description = form.cleaned_data['description']
             gift_list = GiftList(
                 name=form.cleaned_data['name'],
                 description=description,
@@ -56,6 +40,7 @@ def user_page(request):
         user_gift_lists = GiftList.objects.filter(user=request.user)
         context = {'user_gift_lists': user_gift_lists, 'form': form}
         return render(request, 'gifttrack/user_page.html', context)
+
 
 def login_user(request):
     if request.user.is_authenticated():
@@ -76,12 +61,14 @@ def login_user(request):
         form = LoginForm()
         return render(request, 'gifttrack/login.html', {'form': form})
 
+
 def logout_user(request):
     if request.user.is_authenticated():
         logout(request)
         messages.info(request, 'Logged out')
         return HttpResponseRedirect('/')
     return HttpResponseRedirect('/')
+
 
 def register(request):
     if request.user.is_authenticated():
