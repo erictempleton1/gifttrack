@@ -42,6 +42,17 @@ def user_page(request):
         return render(request, 'gifttrack/user_page.html', context)
 
 
+@login_required
+def gift_listing(request, list_id):
+    gift_list = GiftList.objects.get(id=list_id)
+    if gift_list:
+        gifts = Gift.objects.get(gift_list=gift_list)
+        context = {'gifts': gifts}
+        return render(request, 'gifttrack/gift_page.html', context)
+    messages.error(request, 'Unable to view list')
+    return HttpResponseRedirect('/user')
+
+
 def login_user(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/')
