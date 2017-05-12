@@ -9,24 +9,22 @@
 </ul>
 {% endif %}
 
-<div class="form-group">
-    <form action="/create/" method="post">
-        {% csrf_token %}
-        <div class="mdl-textfield mdl-js-textfield">
-            {{ form.gift_desc }}
-            <label class="mdl-textfield__label" for="email">Description</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield">
-            {{ form.gift_from }}
-            <label class="mdl-textfield__label" for="email">From</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield">
-            {{ form.gift_notes }}
-            <label class="mdl-textfield__label" for="email">Notes</label>
-        </div>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-          Add Gift
-        </button>
-    </form>
-</div>
+<form action="/create/" method="post">
+    {% csrf_token %}
+    <div class="mdl-textfield mdl-js-textfield">
+        {{ form.gift_desc }}
+        <label class="mdl-textfield__label" for="email">Description</label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield">
+        {{ form.gift_from }}
+        <label class="mdl-textfield__label" for="email">From</label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield">
+        {{ form.gift_notes }}
+        <label class="mdl-textfield__label" for="email">Notes</label>
+    </div>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+      Add Gift
+    </button>
+</form>
 {% endblock %}

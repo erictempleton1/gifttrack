@@ -10,7 +10,9 @@
 </ul>
 {% endif %}
 
-<div class="form-group">
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--1-col"></div>
     <form action="/register/" method="post">
         {% csrf_token %}
         <div class="mdl-textfield mdl-js-textfield">
@@ -29,5 +31,8 @@
           Register
         </button>
     </form>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--1-col"></div>
 </div>
+
 {% endblock %}
