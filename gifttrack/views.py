@@ -44,13 +44,12 @@ def user_page(request):
 
 @login_required
 def gift_listing(request, list_id):
-    gift_list = GiftList.objects.get(id=list_id)
-    if gift_list:
-        gifts = Gift.objects.get(gift_list=gift_list)
-        context = {'gifts': gifts}
-        return render(request, 'gifttrack/gift_page.html', context)
-    messages.error(request, 'Unable to view list')
-    return HttpResponseRedirect('/user')
+    gifts = Gift.objects.filter(
+        gift_list__user=request.user,
+        gift_list__id=int(list_id)
+    )
+    context = {'gifts': gifts}
+    return render(request, 'gifttrack/gift_page.html', context)
 
 
 def login_user(request):
