@@ -44,12 +44,24 @@ def user_page(request):
 
 @login_required
 def gift_listing(request, list_id):
-    gifts = Gift.objects.filter(
-        gift_list__user=request.user,
-        gift_list__id=int(list_id)
-    )
-    context = {'gifts': gifts}
-    return render(request, 'gifttrack/gift_page.html', context)
+    if request.method == 'POST':
+        form = GiftForm(request.POST)
+        if form.is_valid():
+            gift = Gift(
+                gift_desc=form.cleaned_data['gift_desc'],
+                gift_from=form.cleaned_data['gift_from'],
+                gift_notes=form.cleaned_data['gift_notes']
+            )
+            gift.save()
+            return HttpResponseRedirect('/list/{}'.format(list_id))
+    else:
+        form = GiftForm()
+        gifts = Gift.objects.filter(
+            gift_list__user=request.user,
+            gift_list__id=int(list_id)
+        )
+        context = {'gifts': gifts}
+        return render(request, 'gifttrack/gift_page.html', context)
 
 
 def login_user(request):
