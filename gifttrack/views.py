@@ -41,16 +41,18 @@ def user_page(request):
         context = {'user_gift_lists': user_gift_lists, 'form': form}
         return render(request, 'gifttrack/user_page.html', context)
 
-
+# todo - ensure owner ship of list
 @login_required
 def gift_listing(request, list_id):
     if request.method == 'POST':
         form = GiftForm(request.POST)
         if form.is_valid():
+            gift_list = GiftList.objects.get(id=int(list_id))
             gift = Gift(
                 gift_desc=form.cleaned_data['gift_desc'],
                 gift_from=form.cleaned_data['gift_from'],
-                gift_notes=form.cleaned_data['gift_notes']
+                gift_notes=form.cleaned_data['gift_notes'],
+                gift_list=gift_list
             )
             gift.save()
             return HttpResponseRedirect('/list/{}'.format(list_id))
@@ -60,7 +62,7 @@ def gift_listing(request, list_id):
             gift_list__user=request.user,
             gift_list__id=int(list_id)
         )
-        context = {'gifts': gifts}
+        context = {'gifts': gifts, 'form': form, 'list_id': list_id}
         return render(request, 'gifttrack/gift_page.html', context)
 
 

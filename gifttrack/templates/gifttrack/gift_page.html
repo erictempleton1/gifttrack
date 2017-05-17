@@ -11,9 +11,38 @@
 </ul>
 {% endif %}
 
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <form action="{% url 'gift_listing' list_id %}" method="post">
+        {% csrf_token %}
+        <div class="mdl-textfield mdl-js-textfield">
+            <label class="mdl-textfield__label" for="name">Gift Description</label>
+            {{ form.gift_desc }}
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            <label class="mdl-textfield__label" for="name">Gift From</label>
+            {{ form.gift_from }}
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            <label class="mdl-textfield__label" for="name">Gift Notes</label>
+            {{ form.gift_notes }}
+        </div>
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+            Add Gift
+        </button>
+    </form>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+</div>
+
 {% if gifts %}
     {% for gift in gifts %}
-        {{ gift.gift_desc }}
+        <p>
+            {{ gift.gift_desc }}
+            {{ gift.gift_from }}
+            {{ gift.gift_notes }}
+        </p>
     {% endfor %}
 {% else %}
     No gifts found
