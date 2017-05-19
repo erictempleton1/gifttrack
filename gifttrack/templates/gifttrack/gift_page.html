@@ -36,15 +36,33 @@
     <div class="mdl-cell mdl-cell--1-col"></div>
 </div>
 
-{% if gifts %}
-    {% for gift in gifts %}
-        <p>
-            {{ gift.gift_desc }}
-            {{ gift.gift_from }}
-            {{ gift.gift_notes }}
-        </p>
-    {% endfor %}
-{% else %}
-    No gifts found
-{% endif %}
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+        <thead>
+            <tr>
+            <th>Description</th>  
+            <th>From</th>
+            <th>Notes</th>
+            <th>Added</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if gifts %}
+            {% for gift in gifts %}
+            <tr>
+            <td class="mdl-data-table__cell--non-numeric">{{ gift.gift_desc }}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{ gift.gift_from }}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{ gift.gift_notes }}</td>
+            <td class="mdl-data-table__cell--non-numeria">{{ gift.save_date }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% endif %}
+        </table>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+</div>
 {% endblock %}
