@@ -5,7 +5,7 @@ def base_attrs():
     return {
         'required': True,
         'max_length': 150,
-        'class': 'form-class'
+        'class': 'form-control'
     }
 
 
@@ -71,15 +71,18 @@ class LoginForm(forms.Form):
 
 
 class GiftListForm(forms.Form):
+    mod_base_attrs = base_attrs()
+    mod_base_attrs['placeholder'] = 'Gift List Name'
     name = forms.CharField(
         label="Gift List Name",
         widget=forms.TextInput(
-            attrs=base_attrs()
+            attrs=mod_base_attrs
         )
     )
+    mod_base_attrs['placeholder'] = 'Gift List Description'
     description = forms.CharField(
-        label="Gift List Name",
+        label="Description",
         widget=forms.TextInput(
-            attrs=base_attrs()
+            attrs=mod_base_attrs
         )
     )

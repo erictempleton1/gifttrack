@@ -11,12 +11,10 @@
 </ul>
 {% endif %}
 
-<form action="/user/" method="post">
+<form class="form-inline" action="/user/" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="">
-        Add Gift List
-    </button>
+    {{ form.as_table }}
+    <button type="submit" class="btn btn-primary">Add Gift List</button>
 </form>
 
 {% if user_gift_lists %}
