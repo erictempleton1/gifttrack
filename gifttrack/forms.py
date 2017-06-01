@@ -35,22 +35,26 @@ class GiftForm(forms.Form):
 
 
 class RegForm(forms.Form):
+    mod_base_attrs = base_attrs()
+    mod_base_attrs['placeholder'] = 'Email'
     email = forms.EmailField(
         label='Email',
         widget=forms.EmailInput(
-            attrs=base_attrs()
+            attrs=mod_base_attrs
         )
     )
+    mod_base_attrs['placeholder'] = 'Password'
     password = forms.CharField(
         label='Password',
         widget=forms.PasswordInput(
-            attrs=base_attrs()
+            attrs=mod_base_attrs
         ),
     )
+    mod_base_attrs['placeholder'] = 'Confirm Password'
     password_confirm = forms.CharField(
         label='Confirm Password',
         widget=forms.PasswordInput(
-            attrs=base_attrs()
+            attrs=mod_base_attrs
         )
     )
 

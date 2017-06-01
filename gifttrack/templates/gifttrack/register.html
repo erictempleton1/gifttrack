@@ -10,29 +10,15 @@
 </ul>
 {% endif %}
 
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--1-col"></div>
-    <div class="mdl-cell mdl-cell--1-col"></div>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
     <form action="/register/" method="post">
         {% csrf_token %}
-        <div class="mdl-textfield mdl-js-textfield">
-            {{ form.email }}
-            <label class="mdl-textfield__label" for="email">Email</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield">
-            {{ form.password }}
-            <label class="mdl-textfield__label" for="email">Password</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield">
-            {{ form.password_confirm }}
-            <label class="mdl-textfield__label" for="email">Confirm Password</label>
-        </div>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-          Register
-        </button>
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Register</button>
     </form>
-    <div class="mdl-cell mdl-cell--1-col"></div>
-    <div class="mdl-cell mdl-cell--1-col"></div>
+    </div>
+    <div class="col-md-4"></div>
 </div>
-
 {% endblock %}
