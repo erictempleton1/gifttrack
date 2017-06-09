@@ -17,16 +17,20 @@
     <button type="submit" class="btn btn-primary">Add Gift List</button>
 </form>
 
-{% if user_gift_lists %}
-<ul>
-    {% for gift_list in user_gift_lists %}
-        <li>
-            {{ gift_list.name }}
-            {{ gift_list.description }}
-        </li>
-    {% endfor %}
-{% else %}
-    <p>No gifts found!</p>
-</ul>
-{% endif %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>List Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for gift_list in user_gift_lists %}
+            <tr>
+                <td>{{ gift_list.name }}</td>
+                <td>{{ gift_list.description }}</td>
+            <tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
