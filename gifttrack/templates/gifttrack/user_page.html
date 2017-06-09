@@ -11,26 +11,34 @@
 </ul>
 {% endif %}
 
-<form class="form-inline" action="/user/" method="post">
-    {% csrf_token %}
-    {{ form.as_table }}
-    <button type="submit" class="btn btn-primary">Add Gift List</button>
-</form>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="col-md-1"></div>
+        <form class="form-inline" action="/user/" method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <button type="submit" class="btn btn-primary">Add Gift List</button>
+        </form>
+        <div class="col-md-1"></div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>List Name</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for gift_list in user_gift_lists %}
-            <tr>
-                <td>{{ gift_list.name }}</td>
-                <td>{{ gift_list.description }}</td>
-            <tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>List Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for gift_list in user_gift_lists %}
+                    <tr>
+                        <td>{{ gift_list.name }}</td>
+                        <td>{{ gift_list.description }}</td>
+                    <tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>
 {% endblock %}
