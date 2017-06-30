@@ -4,33 +4,14 @@ Gifttrack Home
 {% endblock %}
 
 {% block body %}
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-
-{% if all_gifts %}
-    <ul>
-        {% for gift in all_gifts %}
-            <li>{{ gift.gift_desc }}</li>
-            <li>{{ gift.gift_from }}</li>
-            <li>{{ gift.gift_notes }}</li>
-        {% endfor %}
-    </ul>
+{% if request.user.is_authenticated %}
+    <h3>Hello, {{ request.user.username }}</h3>
 {% else %}
-    <p>No gifts found</p>
-{% endif %}
-
-{% if all_users %}
-    <ul>
-        {% for user in all_users %}
-            <li>{{ user.email }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No users found</p>
+    <p>
+        <h3>Welcome to GiftTrack!</h3>
+    </p>
+    <p>
+       <h3>Please <a href="/login">log in</a> or <a href="/register">register</a></h3>
+    </p>
 {% endif %}
 {% endblock %}
