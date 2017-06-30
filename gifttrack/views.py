@@ -13,10 +13,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    all_gifts = Gift.objects.all()
-    all_users = User.objects.all()
-    context = {'all_gifts': all_gifts, 'all_users': all_users}
-    return render(request, 'gifttrack/index.html', context)
+    return render(request, 'gifttrack/index.html')
 
 
 @login_required
@@ -41,7 +38,8 @@ def user_page(request):
         context = {'user_gift_lists': user_gift_lists, 'form': form}
         return render(request, 'gifttrack/user_page.html', context)
 
-# todo - ensure owner ship of list
+
+# todo - ensure ownership of list
 @login_required
 def gift_listing(request, list_id):
     if request.method == 'POST':
@@ -77,7 +75,7 @@ def login_user(request):
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/user')
             else:
                 messages.error(request, 'Invalid username/password')
                 return HttpResponseRedirect('/login')
